@@ -1,21 +1,22 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class QuestaoC{
     static Scanner sc = new Scanner(System.in);
     static CadastroPessoa cadPessoa = new CadastroPessoa();
+    static CadastroCarro cadCarro = new CadastroCarro();
 
     public static void main(String[] args){
         try{
             cadastroPessoa();
-        }catch(InputMismatchException e){
+            cadastroCarro();
+        }catch(Error e){
+            System.out.println("Algo aconteceu, não foi possivel prosseguir com o cadastro");
+            System.out.println(e.getMessage());
             sc.close();
-            System.out.println("Ops... você digitou caracteres. Precisamos que digite apenas números.");
         }
     }
 
-    public static void cadastroPessoa(){
-        
+    public static void cadastroPessoa(){  
         try{
             System.out.println("Iniciado processo para cadastro de pessoa.");
             cadPessoa.setNome(nomePessoa());
@@ -29,13 +30,15 @@ public class QuestaoC{
     }
 
     public static void cadastroCarro(){
-        CadastroCarro cadCarro = new CadastroCarro();
-
-        System.out.println("Iniciado processo para cadastro do carro.");
-        cadCarro.setmarca(marcaCarro());
-        cadCarro.setmodelo(modeloCarro());
-        cadCarro.setplaca(placaCarro());
-        System.out.println(cadCarro.getmodelo() + " Cadastrado.");
+        try{
+            System.out.println("Iniciado processo para cadastro do carro.");
+            cadCarro.setmarca(marcaCarro());
+            cadCarro.setmodelo(modeloCarro());
+            cadCarro.setplaca(placaCarro());
+            System.out.println(cadCarro.getmodelo() + " Cadastrado.");
+        }catch(Error e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public static String nomePessoa(){
@@ -86,6 +89,7 @@ public class QuestaoC{
     public static String nascPessoa() throws Exception{
         boolean davaValid;
         String data = "";
+
         try{
             do{
                 System.out.print("Informe data de nascimento dd/mm/aaaa: ");
@@ -141,7 +145,7 @@ public class QuestaoC{
                 marcaVerif = false;
                 System.out.print("Informe a marca: ");
                 marca = sc.nextLine();
-                if(!marca.matches("[A-z]")){
+                if(marca == ""){
                     marcaVerif = true;
                     System.out.println("Informe uma marca valida");
                 }
@@ -163,7 +167,7 @@ public class QuestaoC{
                 modeloVerif = false;
                 System.out.print("Informe o modelo: ");
                 modelo = sc.nextLine();
-                if(!modelo.matches("[A-z]")){
+                if(modelo == ""){
                     modeloVerif = true;
                     System.out.println("Informe um modelo valida");
                 }
@@ -185,7 +189,7 @@ public class QuestaoC{
                 marcaVerif = false;
                 System.out.print("Informe a placa: ");
                 marca = sc.nextLine();
-                if(!marca.matches("[A-Z]{3}[-][0-9]{4}") || !marca.matches("[A-Z]{3}[0-9][A-Z][0-9]{2}")){
+                if(!marca.matches("[A-Z]{3}[-][0-9]{4}") && !marca.matches("[A-Z]{3}[0-9][A-Z][0-9]{2}")){
                     marcaVerif = true;
                     System.out.println("Informe uma placa valida");
                 }
