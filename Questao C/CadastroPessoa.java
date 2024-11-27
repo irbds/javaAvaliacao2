@@ -27,11 +27,16 @@ public class CadastroPessoa {
     //validação segue exemplo de https://www.guj.com.br/t/resolvido-validacao-de-data/339866/3
     public boolean validaData(String data){
         try{
+            if(!data.matches("[0-9]{2}[/][0-9]{2}[/][0-9]{4}")){
+                throw new Exception("Formato de data invalido");
+            }
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
             sdf.parse(data);
             return true;
         }catch (ParseException ex) {
+            return false;
+        }catch (Exception e){
             return false;
         }
     }

@@ -3,15 +3,15 @@ public class CadastroCarro {
     private String modelo;
     private String placa;
 
-    public void setmarca(String marca){ this.marca = marca; }
+    public void setMarca(String marca){ this.marca = marca; }
 
-    public void setmodelo(String modelo){ this.modelo = modelo; }
+    public void setModelo(String modelo){ this.modelo = modelo; }
 
-    public void setplaca(String placa){ this.placa = placa; }
+    public void setPlaca(String placa){ this.placa = placa; }
 
-    public String getmarca(){ return this.marca; }
+    public String getMarca(){ return this.marca; }
 
-    public String getmodelo(){ return this.modelo; }
+    public String getModelo(){ return this.modelo; }
 
-    public String getplaca(){ return this.placa; }
+    public String getPlaca(){ return this.placa; }
 }
