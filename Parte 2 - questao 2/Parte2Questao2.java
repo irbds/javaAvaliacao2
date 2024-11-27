@@ -4,20 +4,21 @@
  * caso o usuario tente remover um item em um slot que não possui item, deve retornar um erro
 */
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Parte2Questao2 {
     static Scanner sc = new Scanner(System.in);
     static int escolha;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MinhaExcecao{
         String[] bolsa = {"", "", "", "", ""};
         boolean retorno = true;
 
         while (retorno) {
             try{
                 System.out.println(
-                    "\n\nEscolha sua acao"+
+                    "\nEscolha sua acao"+
                     "\n 1 - ver bolsa"+
                     "\n 2 - remover item"+
                     "\n 3 - adicionar item"+
@@ -42,7 +43,9 @@ public class Parte2Questao2 {
                         throw new MinhaExcecao("escolha uma opção valida");
                 }
             }catch(MinhaExcecao e){
-                System.out.println("Error: " + e);
+                System.out.println("\n" + e);
+            }catch(InputMismatchException e){
+                System.out.println("Error: Informe apenas numeros");
             }
         }
     }
@@ -54,37 +57,45 @@ public class Parte2Questao2 {
         }
     }
 
-    public static void removerItem(String[] bolsa){
-        verBolsa(bolsa);
-        System.out.println("Escolha o item a ser removido");
-        int numItem = sc.nextInt();
-        if(numItem > 5 || numItem < 1){
-            throw new MinhaExcecao("esse slot nao existe");
-        }else{
-            if(bolsa[numItem-1] == ""){
-                throw new MinhaExcecao("Esse slot não possui itens");
+    public static void removerItem(String[] bolsa) throws MinhaExcecao{
+        try{
+            verBolsa(bolsa);
+            System.out.println("Escolha o item a ser removido");
+            int numItem = sc.nextInt();
+            if(numItem > 5 || numItem < 1){
+                throw new MinhaExcecao("esse slot nao existe");
             }else{
-                bolsa[numItem-1] = "";
+                if(bolsa[numItem-1] == ""){
+                    throw new MinhaExcecao("Esse slot não possui itens");
+                }else{
+                    bolsa[numItem-1] = "";
+                }
             }
+        }catch(InputMismatchException e){
+            System.out.println("Error: Informe apenas numeros");
         }
     }
 
     public static void adicionarItens(String[] bolsa) throws MinhaExcecao{
-        verBolsa(bolsa);
-        System.out.println("Escolha o slot para adicionar o item");
-        
-        int numItem = sc.nextInt();
-        if(numItem > 5 || numItem < 1){
-            throw new MinhaExcecao("esse slot nao existe");
-        }else{
-            if(bolsa[numItem-1] != ""){
-                throw new MinhaExcecao("esse slot já esta sendo utilizado");
+        try{
+            verBolsa(bolsa);
+            System.out.println("Escolha o slot para adicionar o item");
+            
+            int numItem = sc.nextInt();
+            if(numItem > 5 || numItem < 1){
+                throw new MinhaExcecao("esse slot nao existe");
             }else{
-                System.out.println("Qual item deseja adicionar?");
-                sc.nextLine();
-                String item = sc.nextLine();
-                bolsa[numItem-1] = item;
+                if(bolsa[numItem-1] != ""){
+                    throw new MinhaExcecao("esse slot já esta sendo utilizado");
+                }else{
+                    System.out.println("Qual item deseja adicionar?");
+                    sc.nextLine();
+                    String item = sc.nextLine();
+                    bolsa[numItem-1] = item;
+                }
             }
+        }catch(InputMismatchException e){
+            System.out.println("Error: Informe apenas numeros");
         }
     }
 }
